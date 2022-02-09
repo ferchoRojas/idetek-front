@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Title } from '@angular/platform-browser';
+import { Title, Meta } from '@angular/platform-browser';
 import { Subject } from 'rxjs';
 import jsonrepair from 'jsonrepair';
 import { utils, write, WorkBook } from 'xlsx';
@@ -14,7 +14,7 @@ export class JsonToXlsxComponent implements OnDestroy, OnInit {
   dtOptions: DataTables.Settings = {};
   dtTrigger: Subject<any> = new Subject<any>();
 
-  constructor(private title: Title) {}
+  constructor(private title: Title, private meta: Meta) {}
 
   textareaData: any;
   toDownload: any;
@@ -23,6 +23,7 @@ export class JsonToXlsxComponent implements OnDestroy, OnInit {
   showData = false;
   ngOnInit(): void {
     this.title.setTitle('json to excel');
+    this.meta.updateTag({ name: 'description', content: 'Convert json data to excel and csv file' }); 
   }
 
   ngOnDestroy(): void {
