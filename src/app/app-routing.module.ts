@@ -1,11 +1,20 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { DnsComponent } from './dns/dns.component';
+import { JsonToXlsxComponent } from './json-to-xlsx/json-to-xlsx.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: DnsComponent
+    redirectTo: 'json-to-excel',
+    pathMatch: 'full'
+  },
+  {
+    path: 'json-to-excel',
+    component: JsonToXlsxComponent, 
+    data: {
+      title: 'json to excel',
+      description:'Convert json data to excel and csv file'
+    }
   }
 ];
 
