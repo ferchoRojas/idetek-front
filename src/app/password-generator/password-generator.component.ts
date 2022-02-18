@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Meta, Title } from '@angular/platform-browser';
 import { Clipboard } from '@angular/cdk/clipboard';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-password-generator',
@@ -32,7 +32,13 @@ export class PasswordGeneratorComponent implements OnInit {
     // Generate password
     this.generatePassword()
     // Every change generates a new password
-    this.reactiveForm.get("length")?.valueChanges.subscribe(() => {
+    this.reactiveForm.get('length')?.valueChanges.subscribe((x) => {
+      if (!x) {
+        this.reactiveForm.get('length')?.setValue(6)
+      }
+      if (x > 60) {
+        this.reactiveForm.get('length')?.setValue(60)
+      }
       this.generatePassword()
     })
     this.reactiveForm.get('uppercase')?.valueChanges.subscribe(() => {
