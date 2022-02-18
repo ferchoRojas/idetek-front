@@ -22,7 +22,7 @@ export class JsonToXlsxComponent implements OnDestroy, OnInit {
   tableRows: any[] = [];
   showData = false;
   ngOnInit(): void {
-    this.title.setTitle('json to excel');
+    this.title.setTitle('Idetek | json to excel');
     this.meta.updateTag({ name: 'description', content: 'Convert json data to excel and csv file' }); 
   }
 
