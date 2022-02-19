@@ -12,6 +12,8 @@ export class PasswordGeneratorComponent implements OnInit {
 
   constructor(private title: Title, private meta: Meta, private clipboard: Clipboard) { }
 
+  defaultLenght = localStorage.getItem('length')
+
   reactiveForm = new FormGroup({
     length: new FormControl(''),
     uppercase: new FormControl(''),
@@ -22,9 +24,10 @@ export class PasswordGeneratorComponent implements OnInit {
   ngOnInit(): void {
     this.title.setTitle('Idetek | Strong password');
     this.meta.updateTag({ name: 'description', content: 'Generate strong password' });
+    
     // Set default values 
     this.reactiveForm.setValue({
-      length: 12,
+      length: this.defaultLenght ? parseInt(this.defaultLenght) : 12,
       uppercase: true,
       lowercase: true,
       symbols: true
@@ -33,13 +36,13 @@ export class PasswordGeneratorComponent implements OnInit {
     this.generatePassword()
     // Every change generates a new password
     this.reactiveForm.get('length')?.valueChanges.subscribe((x) => {
-      if (!x) {
+      if (!(/[0-9]/g).test(x) || x > 60) {
         this.reactiveForm.get('length')?.setValue(12)
       }
-      if (x > 60) {
-        this.reactiveForm.get('length')?.setValue(10)
+      if (x > 0) {
+        localStorage.setItem('length', String(x))
+        this.generatePassword()
       }
-      this.generatePassword()
     })
     this.reactiveForm.get('uppercase')?.valueChanges.subscribe(() => {
       this.generatePassword()
