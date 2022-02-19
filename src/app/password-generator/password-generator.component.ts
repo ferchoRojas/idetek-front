@@ -34,10 +34,10 @@ export class PasswordGeneratorComponent implements OnInit {
     // Every change generates a new password
     this.reactiveForm.get('length')?.valueChanges.subscribe((x) => {
       if (!x) {
-        this.reactiveForm.get('length')?.setValue(6)
+        this.reactiveForm.get('length')?.setValue(12)
       }
       if (x > 60) {
-        this.reactiveForm.get('length')?.setValue(60)
+        this.reactiveForm.get('length')?.setValue(10)
       }
       this.generatePassword()
     })
