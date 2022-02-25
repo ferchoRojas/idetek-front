@@ -1,0 +1,46 @@
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+
+                </div><!-- /.col -->
+                <div class="col-sm-6">
+
+                </div><!-- /.col -->
+            </div><!-- /.row -->
+        </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+
+    <!-- Main content -->
+    <section class="content">
+        <div class="container-fluid">
+            <div class="d-flex justify-content-center">
+                <div class="card">
+                    <div class="card-header">
+                        <h1 class="card-title">Text</h1>
+                    </div>
+                    <div class="card-body row">
+                        <!-- textarea -->
+                        <div class="form-group">
+                            <textarea [ngModel]="textareaData" (ngModelChange)="textareaChange($event)"
+                                class="form-control" rows="8" cols="115"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row justify-content-around text-center">
+            <h4>Characters: {{ characters }}</h4>
+            <h4>Words: {{ words }}</h4>
+            <h4>Sentences: {{ sentences }}</h4>
+            <h4>Paragraphs: {{ paragraphs }}</h4>
+            <h4>Spaces: {{ spaces }}</h4>
+        </div>
+    </section>
+    <!-- /.content -->
+</div>
+<!-- /.content-wrapper -->

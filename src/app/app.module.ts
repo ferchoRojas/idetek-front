@@ -9,6 +9,7 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { JsonToXlsxComponent } from './json-to-xlsx/json-to-xlsx.component';
 import { PasswordGeneratorComponent } from './password-generator/password-generator.component';
+import { CharacterCountComponent } from './character-count/character-count.component';
 
 
 @NgModule({
@@ -17,7 +18,8 @@ import { PasswordGeneratorComponent } from './password-generator/password-genera
     NavbarComponent,
     SidebarComponent,
     JsonToXlsxComponent,
-    PasswordGeneratorComponent
+    PasswordGeneratorComponent,
+    CharacterCountComponent
   ],
   imports: [
     BrowserModule,
