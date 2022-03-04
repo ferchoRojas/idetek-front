@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Title, Meta } from '@angular/platform-browser';
 import { Subject } from 'rxjs';
 import jsonrepair from 'jsonrepair';
@@ -11,6 +11,7 @@ import { saveAs } from 'file-saver'
   styleUrls: ['./json-to-xlsx.component.css'],
 })
 export class JsonToXlsxComponent implements OnDestroy, OnInit {
+  @ViewChild('data') inputName: any;
   dtOptions: DataTables.Settings = {};
   dtTrigger: Subject<any> = new Subject<any>();
 
@@ -21,9 +22,17 @@ export class JsonToXlsxComponent implements OnDestroy, OnInit {
   tableTitles: any[] = [];
   tableRows: any[] = [];
   showData = false;
+  showError = false;
+  errorMessage = 'A valid json object is required'
+
   ngOnInit(): void {
     this.title.setTitle('Idetek | json to excel');
-    this.meta.updateTag({ name: 'description', content: 'Convert json data to excel and csv file' }); 
+    this.meta.updateTag({ name: 'description', content: 'Convert json data to excel and csv file' });
+    this.dtOptions = {
+      pagingType: 'full_numbers',
+      retrieve: true,
+      pageLength: 10
+    }; 
   }
 
   ngOnDestroy(): void {
@@ -37,12 +46,15 @@ export class JsonToXlsxComponent implements OnDestroy, OnInit {
       let first = aux[0];
       let last = aux[aux.length - 1];
       if (first !== '[' && first !== '{' && last !== ']' && last !== '}') {
+        this.showError = true;
         this.empty();
         return false;
       }
       try {
         e = jsonrepair(e);
+        this.showError = false;
       } catch (error) {
+        this.showError = true;
         this.empty();
         return false;
       }
@@ -59,12 +71,19 @@ export class JsonToXlsxComponent implements OnDestroy, OnInit {
           if (this.isNested(element)) {
             element = this.flatten(element)
           }
-          if (String(Object.keys(element)) !== String(this.tableTitles)) {
+          if (
+            String(Object.keys(element)) !== String(this.tableTitles) && 
+            Object.keys(element).length > 0 &&
+            Array.isArray(json)
+          ) {
             b = true
           }
           this.tableRows.push(Object.values(element));
+          this.dtTrigger.next('');
         });
         if (b) {
+          this.showError = true
+          this.errorMessage = 'All objects must have the same keys'
           this.empty()
           return false
         }
@@ -79,6 +98,7 @@ export class JsonToXlsxComponent implements OnDestroy, OnInit {
       }
       this.showData = true;
     } else {
+      this.showError = false;
       this.empty();
     }
     return true;
@@ -111,6 +131,12 @@ export class JsonToXlsxComponent implements OnDestroy, OnInit {
     wb.Sheets[ws_name] = ws;
     const wbout = write(wb, { bookType: 'csv', bookSST: true, type: 'binary' });
     saveAs(new Blob([this.s2ab(wbout)], { type: 'application/octet-stream' }), 'data.csv');
+  }
+
+  reset(): void {
+    this.inputName.nativeElement.value = '';
+    this.showError = false;
+    this.empty();
   }
 
   flatten(data: any): any {
