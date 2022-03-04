@@ -114,13 +114,14 @@ export class JsonToXlsxComponent implements OnDestroy, OnInit {
         this.tableRows.push(Object.values(json));
         this.toDownload = [json]
       }
+      if (this.render) {
+        this.rerender()
+      }
       this.showData = true;
     } else {
+      this.render = true
       this.showError = false;
       this.empty();
-    }
-    if (this.render) {
-      this.rerender()
     }
     return true;
   }
