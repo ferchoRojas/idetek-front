@@ -4,6 +4,7 @@ import { Subject } from 'rxjs';
 import jsonrepair from 'jsonrepair';
 import { utils, write, WorkBook } from 'xlsx';
 import { saveAs } from 'file-saver'
+import { DataTableDirective } from 'angular-datatables';
 
 @Component({
   selector: 'app-json-to-xlsx',
@@ -12,12 +13,15 @@ import { saveAs } from 'file-saver'
 })
 export class JsonToXlsxComponent implements OnDestroy, OnInit {
   @ViewChild('data') inputName: any;
+  @ViewChild(DataTableDirective, {static: false})
+  dtElement!: DataTableDirective;
   dtOptions: DataTables.Settings = {};
   dtTrigger: Subject<any> = new Subject<any>();
 
   constructor(private title: Title, private meta: Meta) {}
 
   textareaData: any;
+  render = false;
   toDownload: any;
   tableTitles: any[] = [];
   tableRows: any[] = [];
@@ -38,6 +42,20 @@ export class JsonToXlsxComponent implements OnDestroy, OnInit {
   ngOnDestroy(): void {
     // Do not forget to unsubscribe the event
     this.dtTrigger.unsubscribe();
+  }
+
+  rerender(): void {
+    if("dtInstance" in this.dtElement){
+      this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+        // Destroy the table first
+        dtInstance.destroy();
+        // Call the dtTrigger to rerender again
+        this.dtTrigger.next('');
+      });
+    }
+    else{
+      this.dtTrigger.next('');
+    }
   }
 
   textareaChange(e: any): boolean {
@@ -79,7 +97,7 @@ export class JsonToXlsxComponent implements OnDestroy, OnInit {
             b = true
           }
           this.tableRows.push(Object.values(element));
-          this.dtTrigger.next('');
+          this.dtTrigger.next('')
         });
         if (b) {
           this.showError = true
@@ -100,6 +118,9 @@ export class JsonToXlsxComponent implements OnDestroy, OnInit {
     } else {
       this.showError = false;
       this.empty();
+    }
+    if (this.render) {
+      this.rerender()
     }
     return true;
   }
@@ -168,6 +189,7 @@ export class JsonToXlsxComponent implements OnDestroy, OnInit {
   }
 
   empty(): void {
+    this.render = true
     this.tableTitles = [];
     this.tableRows = [];
     this.showData = false;
