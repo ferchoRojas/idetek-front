@@ -30,6 +30,7 @@ export class JsonToXlsxComponent implements OnDestroy, OnInit {
   errorMessage = 'A valid json object is required'
 
   ngOnInit(): void {
+    console.log('json-to-xlsx')
     this.title.setTitle('Idetek | json to excel');
     this.meta.updateTag({ name: 'description', content: 'Convert json data to excel and csv file' });
     this.dtOptions = {

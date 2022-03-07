@@ -22,6 +22,7 @@ export class PasswordGeneratorComponent implements OnInit {
   })
 
   ngOnInit(): void {
+    console.log('password generator')
     this.title.setTitle('Idetek | Strong password');
     this.meta.updateTag({ name: 'description', content: 'Generate strong password' });
     

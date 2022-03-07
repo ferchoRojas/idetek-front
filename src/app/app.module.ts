@@ -10,6 +10,9 @@ import { SidebarComponent } from './sidebar/sidebar.component';
 import { JsonToXlsxComponent } from './json-to-xlsx/json-to-xlsx.component';
 import { PasswordGeneratorComponent } from './password-generator/password-generator.component';
 import { CharacterCountComponent } from './character-count/character-count.component';
+import { HomeComponent } from './home/home.component';
+import { NotFoundComponent } from './not-found/not-found.component';
+
 
 
 @NgModule({
@@ -19,7 +22,9 @@ import { CharacterCountComponent } from './character-count/character-count.compo
     SidebarComponent,
     JsonToXlsxComponent,
     PasswordGeneratorComponent,
-    CharacterCountComponent
+    CharacterCountComponent,
+    HomeComponent,
+    NotFoundComponent
   ],
   imports: [
     BrowserModule,
