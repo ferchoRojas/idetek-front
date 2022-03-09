@@ -1,0 +1,8 @@
+@media (min-width: 768px) {
+    .first-row {
+        margin-left: -5rem;
+    }
+    .second-row {
+        margin-left: 50px;
+    }
+}
