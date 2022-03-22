@@ -23,7 +23,8 @@
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.app.json",
             "allowedCommonJsDependencies": [
-              "xlsx"
+              "xlsx",
+              "crypto"
             ],
             "assets": [
               "src/favicon.ico",
