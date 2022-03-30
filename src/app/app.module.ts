@@ -7,11 +7,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
-import { JsonToXlsxComponent } from './json-to-xlsx/json-to-xlsx.component';
-import { PasswordGeneratorComponent } from './password-generator/password-generator.component';
-import { CharacterCountComponent } from './character-count/character-count.component';
 import { HomeComponent } from './home/home.component';
-import { NotFoundComponent } from './not-found/not-found.component';
 
 
 
@@ -20,11 +16,7 @@ import { NotFoundComponent } from './not-found/not-found.component';
     AppComponent,
     NavbarComponent,
     SidebarComponent,
-    JsonToXlsxComponent,
-    PasswordGeneratorComponent,
-    CharacterCountComponent,
-    HomeComponent,
-    NotFoundComponent
+    HomeComponent
   ],
   imports: [
     BrowserModule,
