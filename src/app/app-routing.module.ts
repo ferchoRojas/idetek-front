@@ -7,8 +7,16 @@ const routes: Routes = [
     component: HomeComponent
   },
   {
-    path: 'pages',
-    loadChildren: () => import('./pages.module').then( m => m.PagesModule )
+    path: 'conversions',
+    loadChildren: () => import('./conversions/conversions.module').then( m => m.ConversionsModule )
+  },
+  {
+    path: 'strings',
+    loadChildren: () => import('./strings/strings.module').then( m => m.StringsModule )
+  },
+  {
+    path: 'not-found',
+    loadChildren: () => import('./not-found/not-found.module').then( m => m.NotFoundModule )
   }
 ];
 
